@@ -1,0 +1,7 @@
+.nextflow/
+logs/
+work/
+results/
+*.log
+main.sh
+test.nf
