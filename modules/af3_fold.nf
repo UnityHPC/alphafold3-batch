@@ -1,7 +1,7 @@
 process AF3_FOLD {
     tag "$id"
     label "gpu"
-    publishDir "${params.output_dir}/fold", mode: 'copy', pattern: "folds/*"
+    publishDir "${params.output_dir}", mode: 'copy', pattern: "folds/*"
 
     input:
     tuple val(id), path("input_a3m/*")
@@ -12,9 +12,10 @@ process AF3_FOLD {
     path "folds/*"
 
     script:
+    def args = task.ext.args ?: ''
     """
     module load alphafold3/latest
     mkdir folds
-    run_alphafold.py --norun_data_pipeline --input_dir input_a3m --output_dir folds --db_dir $af3_db --model_dir $af3_model
+    run_alphafold.py --norun_data_pipeline --input_dir input_a3m --output_dir folds --db_dir $af3_db --model_dir $af3_model $args
     """
 }
